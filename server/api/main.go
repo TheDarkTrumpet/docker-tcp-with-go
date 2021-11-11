@@ -45,8 +45,7 @@ func handleConnections() {
 			fmt.Println(err)
 			return
 		}
-		fmt.Printf("Got connection from %v\n", connection.RemoteAddr().String())
-		fmt.Printf("=> Calling handleClient()")
+		fmt.Printf("!! Got connection from %v!!\n", connection.RemoteAddr().String())
 		go handleClient(connection)
 	}
 }
@@ -58,11 +57,12 @@ func handleClient(connection net.Conn) {
 			fmt.Println(err)
 			return
 		}
+		fmt.Printf("%v <= %v: and %v!", connection.LocalAddr(), connection.RemoteAddr(), data)
 
-		fmt.Printf("Received %v from %v", data, connection.RemoteAddr())
 		time.Sleep(time.Duration(rand.Int31n(15)) * time.Second)
 
-		message := fmt.Sprintf("%v, %v!", connection.RemoteAddr(), rand.Intn(100000))
-		connection.Write([]byte(message))
+		randMessage := fmt.Sprintf("Message! %v\n", rand.Intn(100000))
+		fmt.Printf("%v => %v: and %v!", connection.LocalAddr(), connection.RemoteAddr(), randMessage)
+		connection.Write([]byte(randMessage))
 	}
 }
