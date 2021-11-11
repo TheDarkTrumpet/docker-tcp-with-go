@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"math/rand"
 	"net"
@@ -9,11 +10,13 @@ import (
 	"time"
 )
 
+var clients []string
+
 func main() {
 	rand.Seed(time.Now().Unix())
 
 	fmt.Printf("Calling setupHandlers()\n")
-	setupHandlers()
+	go setupHandlers()
 	fmt.Printf("Calling handleConnection() til finished\n")
 	handleConnections()
 }
@@ -23,10 +26,15 @@ HTTP API Endpoint Handling
 *****/
 func setupHandlers() {
 	http.HandleFunc("/api/getClients", getClients)
+	http.ListenAndServe("localhost:8081", nil)
 }
 
 func getClients(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "getClients API call")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Content-Type", "application/json")
+
+	json.NewEncoder(w).Encode(clients)
 }
 
 /*****
@@ -46,6 +54,7 @@ func handleConnections() {
 			return
 		}
 		fmt.Printf("!! Got connection from %v!!\n", connection.RemoteAddr().String())
+		clients = append(clients, connection.RemoteAddr().String())
 		go handleClient(connection)
 	}
 }
