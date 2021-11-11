@@ -59,6 +59,10 @@ func handleClient(connection net.Conn) {
 			return
 		}
 
-		time.Sleep()
+		fmt.Printf("Received %v from %v", data, connection.RemoteAddr())
+		time.Sleep(time.Duration(rand.Int31n(15)) * time.Second)
+
+		message := fmt.Sprintf("%v, %v!", connection.RemoteAddr(), rand.Intn(100000))
+		connection.Write([]byte(message))
 	}
 }
