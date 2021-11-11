@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run Server" type="GoApplicationRunConfiguration" factoryName="Go Application" singleton="false">
+    <module name="docker-tcp-with-go" />
+    <working_directory value="$PROJECT_DIR$/server/api" />
+    <kind value="FILE" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$/server/api/main.go" />
+    <method v="2" />
+  </configuration>
+</component>
