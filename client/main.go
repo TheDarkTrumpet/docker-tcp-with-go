@@ -12,6 +12,7 @@ import (
 func main() {
 	if len(os.Args) != 3 {
 		fmt.Println("Syntax: ./main <host> <port>")
+		return
 	}
 
 	connHost := fmt.Sprintf("%v:%v", os.Args[1], os.Args[2])
