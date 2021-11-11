@@ -57,12 +57,12 @@ func handleClient(connection net.Conn) {
 			fmt.Println(err)
 			return
 		}
-		fmt.Printf("%v <= %v: and %v!", connection.LocalAddr(), connection.RemoteAddr(), data)
+		fmt.Printf("%v <= %v: and %v", connection.LocalAddr(), connection.RemoteAddr(), data)
 
 		time.Sleep(time.Duration(rand.Int31n(15)) * time.Second)
 
 		randMessage := fmt.Sprintf("Message! %v\n", rand.Intn(100000))
-		fmt.Printf("%v => %v: and %v!", connection.LocalAddr(), connection.RemoteAddr(), randMessage)
+		fmt.Printf("%v => %v: and %v", connection.LocalAddr(), connection.RemoteAddr(), randMessage)
 		connection.Write([]byte(randMessage))
 	}
 }

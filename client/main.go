@@ -26,7 +26,7 @@ func main() {
 
 	for {
 		randMessage := fmt.Sprintf("Message! %v\n", rand.Intn(100000))
-		fmt.Printf("%v => %v: and %v!", connection.LocalAddr(), connection.RemoteAddr(), randMessage)
+		fmt.Printf("%v => %v: and %v", connection.LocalAddr(), connection.RemoteAddr(), randMessage)
 		connection.Write([]byte(randMessage))
 
 		time.Sleep(time.Duration(rand.Int31n(15)) * time.Second)
@@ -36,6 +36,6 @@ func main() {
 			fmt.Println(err)
 			return
 		}
-		fmt.Printf("%v <= %v: and %v!", connection.LocalAddr(), connection.RemoteAddr(), data)
+		fmt.Printf("%v <= %v: and %v", connection.LocalAddr(), connection.RemoteAddr(), data)
 	}
 }
