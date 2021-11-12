@@ -1,6 +1,14 @@
 <template>
   <div id="app">
-    <h1>Client/Server Connection Status Screen</h1>
+    <div class="col-lg-12 row">
+      <h1>Client/Server Connection Status Screen</h1>
+    </div>
+    <div class="col-lg-12 row">
+      <b-tabs content-class="mt-3">
+        <b-tab title="Network Graph" active><p>Network Graph</p></b-tab>
+        <b-tab title="Logs"><p>Logs</p></b-tab>
+      </b-tabs>
+    </div>
   </div>
 </template>
 
