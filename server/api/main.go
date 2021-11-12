@@ -7,17 +7,19 @@ import (
 	"math/rand"
 	"net"
 	"net/http"
+	"strings"
 	"time"
 )
 
 var clients []string
+var serverLog []string
 
 func main() {
 	rand.Seed(time.Now().Unix())
 
-	fmt.Printf("Calling setupHandlers()\n")
+	logAndPrint("Calling setupHandlers()")
 	go setupHandlers()
-	fmt.Printf("Calling handleConnection() til finished\n")
+	logAndPrint("Calling handleConnection() til finished")
 	handleConnections()
 }
 
@@ -26,6 +28,7 @@ HTTP API Endpoint Handling
 *****/
 func setupHandlers() {
 	http.HandleFunc("/api/getClients", getClients)
+	http.HandleFunc("/api/getLogs", getLogs)
 	http.ListenAndServe("localhost:8081", nil)
 }
 
@@ -35,6 +38,14 @@ func getClients(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	json.NewEncoder(w).Encode(clients)
+}
+
+func getLogs(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Content-Type", "application/json")
+
+	json.NewEncoder(w).Encode(serverLog)
 }
 
 /*****
@@ -53,7 +64,7 @@ func handleConnections() {
 			fmt.Println(err)
 			return
 		}
-		fmt.Printf("!! Got connection from %v!!\n", connection.RemoteAddr().String())
+		logAndPrint(fmt.Sprintf("!! Got connection from %v!!\n", connection.RemoteAddr().String()))
 		clients = append(clients, connection.RemoteAddr().String())
 		go handleClient(connection)
 	}
@@ -66,12 +77,23 @@ func handleClient(connection net.Conn) {
 			fmt.Println(err)
 			return
 		}
-		fmt.Printf("%v <= %v: and %v", connection.LocalAddr(), connection.RemoteAddr(), data)
+		logAndPrint(fmt.Sprintf("%v <= %v: and %v", connection.LocalAddr(), connection.RemoteAddr(), data))
 
 		time.Sleep(time.Duration(rand.Int31n(15)) * time.Second)
 
 		randMessage := fmt.Sprintf("Message! %v\n", rand.Intn(100000))
-		fmt.Printf("%v => %v: and %v", connection.LocalAddr(), connection.RemoteAddr(), randMessage)
+		logAndPrint(fmt.Sprintf("%v => %v: and %v", connection.LocalAddr(), connection.RemoteAddr(), randMessage))
 		connection.Write([]byte(randMessage))
 	}
+}
+
+func logAndPrint(logMessage string) {
+	serverLog = append(serverLog, logMessage)
+
+	logMessage = strings.Trim(logMessage, "\n")
+	if len(serverLog) > 100{
+		serverLog = serverLog[1:101]
+	}
+
+	fmt.Println(logMessage)
 }
