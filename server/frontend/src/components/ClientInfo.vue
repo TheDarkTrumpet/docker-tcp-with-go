@@ -17,7 +17,7 @@ import ClientLogs from "@/components/ClientLogs";
 
 export default {
   name: "ClientInfo",
-  comments: {
+  components: {
     ClientGraph,
     ClientLogs
   }
