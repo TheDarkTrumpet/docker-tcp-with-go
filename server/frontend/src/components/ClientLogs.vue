@@ -24,17 +24,19 @@ export default {
       this.fetchLogs()
     },
     fetchLogs() {
-      this.$http.get("http://localhost:8081/api/getLogs?" + Math.random()).then( response => {
-        console.log(response.status)
-        if (response.data.length > 0) {
-          this.Logs = response.data.map(v => `<p>${v}</p>`).join('\n')
-        } else {
-          this.Logs = "<p>No Logs Received, as of yet</p>"
-        }
-      }, () => {
-        this.Logs = "<p>Server is unresponsive, did the API endpoint get launched?</p>"
-        return
-      }).catch(() => {})
+      fetch("http://localhost:8081/api/getLogs")
+          .then( async response => {
+            const data = await response.json();
+            console.log(data)
+            if (data.length > 0) {
+              this.Logs = data.map(v => `<p>${v}</p>`).reverse().join('\n')
+            } else {
+              this.Logs = "<p>No Logs Received, as of yet</p>"
+            }
+          }, () => {
+            this.Logs = "<p>Server is unresponsive, did the API endpoint get launched?</p>"
+            return
+          }).catch( () => { })
     }
   }
 }
