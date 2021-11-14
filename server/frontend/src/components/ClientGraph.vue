@@ -6,7 +6,23 @@
 
 <script>
 export default {
-  name: "ClientGraph"
+  name: "ClientGraph",
+  data() {
+    return {
+      networkGraph: ''
+    }
+  },
+  created() {
+    this.fetchAll()
+  },
+  methods: {
+    fetchAll() {
+      this.fetchGraph()
+    },
+    fetchGraph() {
+
+    }
+  }
 }
 </script>
 
