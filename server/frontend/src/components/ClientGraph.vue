@@ -52,6 +52,6 @@ export default {
 
 <style scoped>
 .network-graph {
-  height: 800px;
+  height: 600px;
 }
 </style>
