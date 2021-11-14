@@ -11,37 +11,40 @@ export default {
   name: "ClientGraph",
   data() {
     return {
-      nodes: [
-        { id: 1, label: 'Node 1' },
-        { id: 2, label: 'Node 2' },
-        { id: 3, label: 'Node 3' },
-        { id: 4, label: 'Node 4' },
-        { id: 5, label: 'Node 5' },
-      ],
-      edges: [
-        { id: 1, from: 1, to: 3 },
-        { id: 2, from: 1, to: 2 },
-        { id: 3, from: 2, to: 4 },
-        { id: 4, from: 2, to: 5 },
-        { id: 5, from: 3, to: 3 },
-      ],
+      status: "",
+      nodes: [],
+      edges: [],
       options: {
         nodes: {
           shape: 'circle',
         },
-        height: 800,
-        }
       }
+    }
   },
   created() {
     this.fetchAll()
+    this.timer = setInterval(this.fetchAll, 3000)
   },
   methods: {
     fetchAll() {
       this.fetchGraph()
     },
     fetchGraph() {
-
+      fetch("http://localhost:8081/api/getClients")
+          .then( async response => {
+            const data = await response.json();
+            console.log(data)
+            if (Object.keys(data).length > 0) {
+              console.log("Length is larger than 0")
+              this.nodes = data["Nodes"]
+              this.edges = data["Edges"]
+            } else {
+              this.status = "<p>No Logs Received, as of yet</p>"
+            }
+          }, () => {
+            this.status = "<p>Server is unresponsive, did the API endpoint get launched?</p>"
+            return
+          }).catch( () => { })
     }
   }
 }

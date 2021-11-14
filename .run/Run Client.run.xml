@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run Client" type="GoApplicationRunConfiguration" factoryName="Go Application">
+  <configuration default="false" name="Run Client" type="GoApplicationRunConfiguration" factoryName="Go Application" singleton="false">
     <module name="docker-tcp-with-go" />
     <working_directory value="$PROJECT_DIR$" />
     <parameters value="localhost 9999" />

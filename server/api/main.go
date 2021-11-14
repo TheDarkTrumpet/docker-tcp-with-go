@@ -7,6 +7,7 @@ import (
 	"math/rand"
 	"net"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -32,23 +33,25 @@ func setupHandlers() {
 	http.ListenAndServe("localhost:8081", nil)
 }
 
-type nodeAndEdge struct {
-	nodes []map[string]string
-	edges []map[string]string
-}
 func getClients(w http.ResponseWriter, r *http.Request) {
+	type nodeAndEdge struct {
+		Nodes []map[string]string
+		Edges []map[string]string
+	}
+
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
 
-	var nodes []map[string]string
-	var edges []map[string]string
+	var nodes []map[string]string               //Never should be null
+	var edges = make([]map[string]string, 0)    //Prevent Null
 	nodes = append(nodes, map[string]string{ "id": "1", "label": "Server"})
 	for index, value := range clients {
-		nodes = append(nodes, map[string]string{ "id": string(index + 1), "label": value})
-		edges = append(edges, map[string]string{ "id": "1", "from": "1", "to": string(index + 1)})
+		offsetId := strconv.Itoa(index + 2)   //0-indexed
+		nodes = append(nodes, map[string]string{ "id": offsetId, "label": value})
+		edges = append(edges, map[string]string{ "id": strconv.Itoa(index), "from": "1", "to": offsetId})
 	}
-	nodesAndEdges := nodeAndEdge{edges: edges, nodes: nodes}
+	nodesAndEdges := &nodeAndEdge{Edges: edges, Nodes: nodes}
 	json.NewEncoder(w).Encode(nodesAndEdges)
 }
 

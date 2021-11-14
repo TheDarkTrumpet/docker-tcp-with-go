@@ -27,7 +27,6 @@ export default {
       fetch("http://localhost:8081/api/getLogs")
           .then( async response => {
             const data = await response.json();
-            console.log(data)
             if (data.length > 0) {
               this.Logs = data.map(v => `<p>${v}</p>`).reverse().join('\n')
             } else {
