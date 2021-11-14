@@ -32,12 +32,24 @@ func setupHandlers() {
 	http.ListenAndServe("localhost:8081", nil)
 }
 
+type nodeAndEdge struct {
+	nodes []map[string]string
+	edges []map[string]string
+}
 func getClients(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
 
-	json.NewEncoder(w).Encode(clients)
+	var nodes []map[string]string
+	var edges []map[string]string
+	nodes = append(nodes, map[string]string{ "id": "1", "label": "Server"})
+	for index, value := range clients {
+		nodes = append(nodes, map[string]string{ "id": string(index + 1), "label": value})
+		edges = append(edges, map[string]string{ "id": "1", "from": "1", "to": string(index + 1)})
+	}
+	nodesAndEdges := nodeAndEdge{edges: edges, nodes: nodes}
+	json.NewEncoder(w).Encode(nodesAndEdges)
 }
 
 func getLogs(w http.ResponseWriter, r *http.Request) {
