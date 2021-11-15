@@ -8,11 +8,7 @@ if [[ $CURDIR == *server_client\/server ]]
 then
    echo "Running build!"
    mkdir artifacts
-   cd ../../../client
-   make clean
-   make
-   cp build/client "$CURDIR/artifacts"
-   cd ../server/api
+   cd ../../../server/api
    make clean
    make
    cp build/server "$CURDIR/artifacts"
