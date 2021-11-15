@@ -30,7 +30,7 @@ export default {
       this.fetchGraph()
     },
     fetchGraph() {
-      fetch("http://localhost:8081/api/getClients")
+      fetch(this.$apiURL + "/getClients")
           .then( async response => {
             const data = await response.json();
             console.log(data)

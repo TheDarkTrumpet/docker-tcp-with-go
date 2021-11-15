@@ -24,7 +24,7 @@ export default {
       this.fetchLogs()
     },
     fetchLogs() {
-      fetch("http://localhost:8081/api/getLogs")
+      fetch(this.$apiURL + "/getLogs")
           .then( async response => {
             const data = await response.json();
             if (data.length > 0) {

@@ -4,7 +4,6 @@ import {BootstrapVue, IconsPlugin } from "bootstrap-vue"
 import { DropdownPlugin, TablePlugin, NavbarPlugin, LayoutPlugin } from 'bootstrap-vue'
 import { CardPlugin }  from 'bootstrap-vue'
 import VueResource from 'vue-resource'
-// import VueVisjs from 'vue-visjs'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -17,11 +16,14 @@ Vue.use(NavbarPlugin)
 Vue.use(LayoutPlugin)
 Vue.use(CardPlugin)
 Vue.use(VueResource)
-//Vue.use(VueVisjs)
+
 
 import { Network } from 'vue-visjs'
 Vue.component('network', Network)
 
+Vue.config.productionTip = false
+//Vue.prototype.$apiURL = 'http://localhost:8081/api'
+Vue.prototype.$apiURL = '/api'  // Production
 new Vue({
   render: h => h(App),
 }).$mount('#app')
