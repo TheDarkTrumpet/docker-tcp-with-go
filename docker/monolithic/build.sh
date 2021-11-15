@@ -18,6 +18,8 @@ then
    cd ../frontend/
    npm run build
    cp -R dist "$CURDIR/artifacts"
+   cd $CURDIR/artifacts/dist
+   find . -type f -exec sed -i 's/http:\/\/localhost:8081\/api/\/api/g' {} \;
    cd $CURDIR
    docker build -t registry.services.tdt:40105/thedarktrumpet/docker-tcp-with-go:monolithic .
 else

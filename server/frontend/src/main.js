@@ -22,8 +22,8 @@ import { Network } from 'vue-visjs'
 Vue.component('network', Network)
 
 Vue.config.productionTip = false
-//Vue.prototype.$apiURL = 'http://localhost:8081/api'
-Vue.prototype.$apiURL = '/api'  // Production
+Vue.prototype.$apiURL = 'http://localhost:8081/api'
+
 new Vue({
   render: h => h(App),
 }).$mount('#app')
