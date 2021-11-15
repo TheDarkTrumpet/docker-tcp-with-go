@@ -5,6 +5,8 @@
 These steps will build the monolithic docker image, and run it using docker run
 and verifying the contents in a web browser
 
+It's important to run each part entirely, including the cleanup, between each activity.
+
 ## Steps to Build
 
 1. cd to `docker-tcp-with-go/docker/monolithic`

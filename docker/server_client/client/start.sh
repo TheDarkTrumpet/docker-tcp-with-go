@@ -1,4 +1,4 @@
 #!/bin/sh
 
 cd /src
-./client server 9999 &
+./client server 9999
