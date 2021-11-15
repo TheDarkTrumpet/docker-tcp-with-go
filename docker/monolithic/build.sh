@@ -22,6 +22,7 @@ then
    find . -type f -exec sed -i 's/http:\/\/localhost:8081\/api/\/api/g' {} \;
    cd $CURDIR
    docker build -t thedarktrumpet/docker-tcp-with-go:monolithic .
+   rm -Rf artifacts
 else
   echo "You must run this script within the docker/monolithic directory!"
 fi
