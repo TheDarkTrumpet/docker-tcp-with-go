@@ -87,6 +87,19 @@ func handleConnections() {
 
 func handleClient(connection net.Conn) {
 	remoteAddr := connection.RemoteAddr()
+
+	defer func() {
+		logAndPrint(fmt.Sprintf("%v disconnected", remoteAddr))
+
+		for index, value := range(clients) {
+			if value == remoteAddr.String() {
+				clients = append(clients[:index], clients[index+1:]...)
+				break
+			}
+		}
+	}()
+
+
 	for {
 		data, err := bufio.NewReader(connection).ReadString('\n')
 		if err != nil {
@@ -100,14 +113,6 @@ func handleClient(connection net.Conn) {
 		randMessage := fmt.Sprintf("Message! %v\n", rand.Intn(100000))
 		logAndPrint(fmt.Sprintf("%v => %v: and %v", connection.LocalAddr(), connection.RemoteAddr(), randMessage))
 		connection.Write([]byte(randMessage))
-	}
-	logAndPrint(fmt.Sprintf("%v disconnected", remoteAddr))
-
-	for index, value := range(clients) {
-		if value == remoteAddr.String() {
-			clients = append(clients[:index], clients[index+1:]...)
-			break
-		}
 	}
 }
 
