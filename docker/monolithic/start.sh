@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cd /src
-./server &
+nohup ./server &
 sleep 2
-./client localhost 8081 &
+nohup ./client localhost 9999 &
 nginx
