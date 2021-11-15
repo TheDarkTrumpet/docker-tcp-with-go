@@ -3,5 +3,5 @@
 cd /src
 ./server &
 sleep 2
-./client &
+./client localhost 8081 &
 nginx
