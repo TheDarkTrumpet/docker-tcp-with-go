@@ -30,7 +30,7 @@ HTTP API Endpoint Handling
 func setupHandlers() {
 	http.HandleFunc("/api/getClients", getClients)
 	http.HandleFunc("/api/getLogs", getLogs)
-	http.ListenAndServe("localhost:8081", nil)
+	http.ListenAndServe("0.0.0.0:8081", nil)
 }
 
 func getClients(w http.ResponseWriter, r *http.Request) {
