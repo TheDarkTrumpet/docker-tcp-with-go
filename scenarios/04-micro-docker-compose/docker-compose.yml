@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  micro-api:
+    container_name: api
+    image: thedarktrumpet/docker-tcp-with-go:micro_api
+    restart: unless-stopped
+  micro-client:
+    container_name: client
+    image: thedarktrumpet/docker-tcp-with-go:micro_client
+    restart: unless-stopped
+    depends_on:
+      - micro-api
+  micro_web:
+    container_name: web
+    image: thedarktrumpet/docker-tcp-with-go:micro_web
+    restart: unless-stopped
+    ports:
+      - "11111:80/tcp"
+    depends_on:
+      - micro-api
