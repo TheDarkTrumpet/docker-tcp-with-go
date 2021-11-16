@@ -11,6 +11,6 @@ run:
 
 clean:
 	go clean
-	rmdir build
+	rm -Rf build
 
 all: build

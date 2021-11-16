@@ -7,6 +7,7 @@ echo "Current Working Directory: $CURDIR"
 if [[ $CURDIR == *monolithic ]]
 then
    echo "Running build!"
+   mkdir artifacts
    cd ../../client
    make clean
    make
