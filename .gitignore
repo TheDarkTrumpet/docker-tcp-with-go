@@ -26,3 +26,11 @@ backend/main
 build
 artifacts
 
+docs/*.png
+docs/*.aux
+docs/*.log
+docs/*.nav
+docs/*.snm
+docs/*.toc
+docs/*.out
+
