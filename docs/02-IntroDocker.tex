@@ -9,6 +9,7 @@
 %
 % 
 \documentclass{beamer}
+\usepackage{minted}
 \setbeamertemplate{navigation symbols}{}
 
 
@@ -56,12 +57,21 @@
 \end{frame}
 
 \begin{frame}\frametitle{Docker Pull}
+  \textbf{Purpose:} To pull an image from a repository.  Default is hub.dockerhub.com
+  \\ \\
+  \mintinline{shell}{docker pull [image]}
 \end{frame}
 
 \begin{frame}\frametitle{Docker Run}
+  \textbf{Purpose:} Takes a currently existing image, or pulls a new image with name, and spawns a new container.  Many options exist, such as exposing ports, linking to other containers, etc.
+  \\ \\
+  \mintinline{shell}{docker run [opts] [image]}
 \end{frame}
 
 \begin{frame}\frametitle{Docker Kill}
+  \textbf{Purpose:} Will stop execution of a currently running container.
+  \\ \\
+  \mintinline{shell}{docker kill [hash or name]}  
 \end{frame}
 
 \begin{frame}\frametitle{Docker Rm, and Rmi}
