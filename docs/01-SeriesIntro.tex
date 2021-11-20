@@ -1,0 +1,54 @@
+\documentclass{beamer}
+\usepackage{minted}
+\setbeamertemplate{navigation symbols}{}
+
+
+\usetheme{Montpellier}
+
+\beamersetuncovermixins{\opaqueness<1>{25}}{\opaqueness<2->{15}}
+\begin{document}
+\title{Series Introduction}
+\author{David Thole}
+\date{\today} 
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Series Introduction}
+\begin{frame}\frametitle{Purpose}
+  The goal of this presentation series is to give you a general overview of Docker, how to use it (e.g. running containers), and how to write your own Docker files.
+\end{frame}
+\begin{frame}\frametitle{What will be covered}
+  The goal is to cover the following items:
+  \begin{itemize}
+  \item How to pull and run an existing image.
+  \item How to customize how an image is run.
+  \item How to debug, pry into an image, etc.
+  \item How to write your own images, and using Docker Compose
+  \end{itemize}
+\end{frame}
+\begin{frame}\frametitle{What won't be covered}
+  \begin{itemize}
+  \item Every command line argument for each type of run case.
+  \item Kubernetes, Portainer, etc.
+  \item Deep Docker networking, theory, etc.
+  \end{itemize}
+\end{frame}
+
+\section{Project and Files}
+\begin{frame}\frametitle{Project and Files}
+  All source code is located at the following URL:
+  \begin{itemize}
+  \item https://github.com/TheDarkTrumpet/docker-tcp-with-go
+  \end{itemize}
+  All series documentation is at the following URL:
+  \begin{itemize}
+  \item https://thedarktrumpet.com/series/docker-intro
+  \end{itemize}
+\end{frame}
+
+\section{Series Flow}
+\begin{frame}\frametitle{Series Flow}
+  Each video will likely have a small slide show to go over high level concepts, then all videos will have a demo section where we demonstrate the concepts.  The scenario folders will be used in some cases.  Written documentation will exist for some parts where I'm expecting you to follow along, primarily in the demo videos.
+\end{frame}
+\end{document}

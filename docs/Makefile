@@ -2,6 +2,7 @@ architecture_diagram = ArchitectureDiagram.drawio
 
 build: clean build_diags
 	$(build_diags)
+	pdflatex -shell-escape 01-SeriesIntro.tex
 	pdflatex -shell-escape 02-IntroDocker.tex
 
 build_diags:
