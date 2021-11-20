@@ -1,0 +1,67 @@
+% This text is proprietary.
+% It's a part of presentation made by myself.
+% It may not used commercial.
+% The noncommercial use such as private and study is free
+% Dec 2007
+% Author: Sascha Frank 
+% University Freiburg 
+% www.informatik.uni-freiburg.de/~frank/
+%
+% 
+\documentclass{beamer}
+\setbeamertemplate{navigation symbols}{}
+
+
+\usetheme{Montpellier}
+
+\beamersetuncovermixins{\opaqueness<1>{25}}{\opaqueness<2->{15}}
+\begin{document}
+\title{Introduction to Docker}
+\author{David Thole}
+\date{\today} 
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}\frametitle{Table of contents}\tableofcontents
+\end{frame} 
+
+
+\section{Docker Overview}
+\begin{frame}\frametitle{Docker Definition}
+  Docker is defined, by Microsoft \small{[1]} as:
+  \begin{quote}
+    Docker is an open-source project for automating the deployment of applications as portable, self-sufficient containers that can run on the cloud or on-premises.
+  \end{quote}
+\end{frame}
+\begin{frame}\frametitle{Docker Architecture}
+  \begin{figure}
+    \includegraphics[width = 1\textwidth]{ArchitectureDiagram-DockerVsVMs.png}
+  \end{figure}
+\end{frame}
+
+\section{Pulling and Running Containers}
+\begin{frame}\frametitle{Docker Commands}
+
+\end{frame}
+
+\begin{frame}\frametitle{Docker Pull}
+\end{frame}
+
+\begin{frame}\frametitle{Docker Run}
+\end{frame}
+
+\begin{frame}\frametitle{Docker Kill}
+\end{frame}
+
+\begin{frame}\frametitle{Docker Rm, and Rmi}
+\end{frame}
+
+\section{References}
+\begin{frame}\frametitle{References}
+  \begin{itemize}
+    \item [1] - https://docs.microsoft.com/en-us/dotnet/architecture/microservices/container-docker-introduction/docker-defined
+  \end{itemize}
+\end{frame}
+
+\end{document}
