@@ -21,10 +21,11 @@
 \author{David Thole}
 \date{\today} 
 \begin{frame}
-\titlepage
+  \titlepage
 \end{frame}
 
-\begin{frame}\frametitle{Table of contents}\tableofcontents
+\begin{frame}{outline}
+  \tableofcontents
 \end{frame} 
 
 
@@ -52,10 +53,6 @@
 \end{frame}
 
 \section{Pulling and Running Containers}
-\begin{frame}\frametitle{Docker Commands}
-
-\end{frame}
-
 \begin{frame}\frametitle{Docker Pull}
   \textbf{Purpose:} To pull an image from a repository.  Default is hub.dockerhub.com
   \\ \\
@@ -75,6 +72,10 @@
 \end{frame}
 
 \begin{frame}\frametitle{Docker Rm, and Rmi}
+  \textbf{Purpose:} Will remove a container (rm) or image (rmi)
+  \\ \\
+  \mintinline{shell}{docker rm [container hash or name]}  \\
+  \mintinline{shell}{docker rmi [image name]}  \\  
 \end{frame}
 
 \section{References}
