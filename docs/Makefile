@@ -11,5 +11,6 @@ build_diags:
 
 clean:
 	rm -f *.aux *.log *.nav *.snm *.toc *.png *.out
+	rm -Rf _minted*
 
 all: build
