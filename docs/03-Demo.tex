@@ -1,0 +1,46 @@
+\documentclass{beamer}
+\usepackage{minted}
+\setbeamertemplate{navigation symbols}{}
+
+
+\usetheme{Montpellier}
+
+\beamersetuncovermixins{\opaqueness<1>{25}}{\opaqueness<2->{15}}
+\begin{document}
+\title{Demo and Architecture}
+\author{David Thole}
+\date{\today} 
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Introduction}
+\begin{frame}\frametitle{Introduction}
+  This video designed to run through various run and composition strategies, and introduce the project we're working with.
+\end{frame}
+\section{Problem Statement}
+\begin{frame}
+  \begin{figure}
+    \includegraphics[width = 1\textwidth]{03-General.png}
+  \end{figure}
+\end{frame}
+\section{Architecture Options}
+\subsection{Monolithic}
+\begin{frame}
+  \begin{figure}
+    \includegraphics[width = 1\textwidth]{03-monolithic.png}
+  \end{figure}
+\end{frame}
+\subsection{Server and Client}
+\begin{frame}
+  \begin{figure}
+    \includegraphics[width = 1\textwidth]{03-serverclient.png}
+  \end{figure}
+\end{frame}
+\subsection{Microservice}
+\begin{frame}
+  \begin{figure}
+    \includegraphics[width = 1\textwidth]{03-micro.png}
+  \end{figure}
+\end{frame}
+\end{document}
