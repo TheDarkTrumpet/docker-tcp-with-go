@@ -3,7 +3,9 @@ architecture_diagram = ArchitectureDiagram.drawio
 build: clean build_diags
 	$(build_diags)
 	pdflatex -shell-escape 01-SeriesIntro.tex
+	pdflatex -shell-escape 01-SeriesIntro.tex  # For TOC
 	pdflatex -shell-escape 02-IntroDocker.tex
+	pdflatex -shell-escape 02-IntroDocker.tex  # For TOC
 
 build_diags:
 	draw.io -x -f png -e -p 0 -o ./02-DockerVsVMs.png $(architecture_diagram)

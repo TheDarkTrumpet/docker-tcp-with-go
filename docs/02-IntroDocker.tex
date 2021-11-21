@@ -14,18 +14,29 @@
   \titlepage
 \end{frame}
 
-\begin{frame}{outline}
+\begin{frame}{Outline}
   \tableofcontents
 \end{frame} 
 
 
 \section{Docker Overview}
+\subsection{Docker Definition}
 \begin{frame}\frametitle{Docker Definition}
   Docker is defined, by Microsoft \small{[1]} as:
   \begin{quote}
     Docker is an open-source project for automating the deployment of applications as portable, self-sufficient containers that can run on the cloud or on-premises.
   \end{quote}
 \end{frame}
+\subsection{Why Use Docker}
+\begin{frame}\frametitle{Why use Docker?}
+  There are three main ways that Docker can benefit you, both at home, and in the enterprise:
+  \begin{itemize}
+  \item \textbf{Testing} - The ability to test software
+  \item \textbf{Consisting Deployment} - Same ``image'' used in QA, Prod.
+  \item \textbf{Simplified Development} - Less local dependencies, easier to spin up infrastructure.
+  \end{itemize}
+\end{frame}
+\subsection{Architecture}
 \begin{frame}\frametitle{Docker Architecture}
   \begin{figure}
     \includegraphics[width = 1\textwidth]{02-DockerVsVMs.png}
@@ -43,24 +54,25 @@
 \end{frame}
 
 \section{Pulling and Running Containers}
+\subsection{Docker Pull}
 \begin{frame}\frametitle{Docker Pull}
   \textbf{Purpose:} To pull an image from a repository.  Default is hub.dockerhub.com
   \\ \\
   \mintinline{shell}{docker pull [image]}
 \end{frame}
-
+\subsection{Docker Run}
 \begin{frame}\frametitle{Docker Run}
   \textbf{Purpose:} Takes a currently existing image, or pulls a new image with name, and spawns a new container.  Many options exist, such as exposing ports, linking to other containers, etc.
   \\ \\
   \mintinline{shell}{docker run [opts] [image]}
 \end{frame}
-
+\subsection{Docker Kill}
 \begin{frame}\frametitle{Docker Kill}
   \textbf{Purpose:} Will stop execution of a currently running container.
   \\ \\
   \mintinline{shell}{docker kill [hash or name]}  
 \end{frame}
-
+\subsection{Docker Rm, and RMI}
 \begin{frame}\frametitle{Docker Rm, and Rmi}
   \textbf{Purpose:} Will remove a container (rm) or image (rmi)
   \\ \\
