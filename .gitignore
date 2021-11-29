@@ -34,3 +34,4 @@ docs/*.snm
 docs/*.toc
 docs/*.out
 docs/_minted*
+*.pyg
