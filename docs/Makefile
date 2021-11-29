@@ -11,13 +11,13 @@ build: clean build_diags
 	pdflatex -shell-escape 03-RunStrategies.tex # For TOC
 
 build_diags:
-	draw.io -x -f png -e -p 0 -o ./02-DockerVsVMs.png $(architecture_diagram)
-	draw.io -x -f png -e -p 1 -o ./02-DockerRunArch.png $(architecture_diagram)
-	draw.io -x -f png -e -p 2 -o ./02-DockerNetwork.png $(architecture_diagram)
-	draw.io -x -f png -e -p 0 -o ./03-General.png $(demo_diagram)
-	draw.io -x -f png -e -p 1 -o ./03-monolithic.png $(demo_diagram)
-	draw.io -x -f png -e -p 2 -o ./03-serverclient.png $(demo_diagram)
-	draw.io -x -f png -e -p 3 -o ./03-micro.png $(demo_diagram)
+	drawio -x -f png -e -p 0 -o ./02-DockerVsVMs.png $(architecture_diagram)
+	drawio -x -f png -e -p 1 -o ./02-DockerRunArch.png $(architecture_diagram)
+	drawio -x -f png -e -p 2 -o ./02-DockerNetwork.png $(architecture_diagram)
+	drawio -x -f png -e -p 0 -o ./03-General.png $(demo_diagram)
+	drawio -x -f png -e -p 1 -o ./03-monolithic.png $(demo_diagram)
+	drawio -x -f png -e -p 2 -o ./03-serverclient.png $(demo_diagram)
+	drawio -x -f png -e -p 3 -o ./03-micro.png $(demo_diagram)
 
 clean:
 	rm -f *.aux *.log *.nav *.snm *.toc *.png *.out
