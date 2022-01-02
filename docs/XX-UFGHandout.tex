@@ -1,0 +1,86 @@
+\documentclass[legal,12pt,oneside,pdflatex,final,twocolumn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{parallel}
+\usepackage{minted}
+\usemintedstyle{vs}
+\usepackage[export]{adjustbox}
+\usepackage[margin=0.5in]{geometry}
+\addtolength{\topmargin}{0in}
+
+\usepackage{libertine}
+\renewcommand*\familydefault{\sfdefault}  %% Only if the base font of the document is to be sans serif
+\usepackage[T1]{fontenc}
+
+\title{UFG Docker Presentation}
+\author{David Thole}
+\date{Jan 05, 2022}
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\lhead{Docker At UFG}
+\chead {Jan 05, 2022}
+\rhead{Lunch and Learn}
+
+\onecolumn
+
+\begin{figure}
+\begin{minipage}{0.47\textwidth}
+\section{Resources}
+    \begin{itemize}
+        \item \textbf{Github Repo}: \\ \url{https://bit.ly/3qJtZOX}
+        \item \textbf{DockerHub Repo}: \\ \url{https://dockr.ly/344M828}
+        \item \textbf{Command Cheatsheet}: \\ \url{https://bit.ly/3pK6lme}
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+  \centering
+  \includegraphics[width=0.5\textwidth,right]{XX-DockerLogo.png}
+\end{minipage}
+\end{figure}
+
+\section{Terms}
+\begin{itemize}
+  \item \textbf{Registry}: The storage location for images (think like Github), most popular is DockerHub, but private registries can be made
+  \item \textbf{Image}: An immutable version of a ``stack'', defined as the software stack required for the particular file.
+  \item \textbf{Container}: The currently executing image, that has state added.
+  \item \textbf{Dockerfile}: A file that describes how an image should be created
+  \item \textbf{Docker Compose File}: A .yml file that describes how a collection of images should be invoked
+\end{itemize}
+
+\section{Common Commands}
+\subsection{Executing Containers}
+\begin{itemize}
+  \item \mintinline{shell}{docker run [container_name]} : Runs a container, non-daemon
+  \item \mintinline{shell}{docker run -d [container_name]} : Runs a container, daemon
+  \item \mintinline{shell}{docker-compose up <-d>} : Runs a compose collection, optional daemon
+\end{itemize}
+\subsection{Investigating Containers}
+\begin{itemize}
+  \item \mintinline{shell}{docker ps} : Lists running containers
+  \item \mintinline{shell}{docker logs [container_name_or_hash]} : Runs a container, non-daemon
+\end{itemize}
+\subsection{Killing/Cleanup of Containers}
+\begin{itemize}
+  \item \mintinline{shell}{docker kill [container_name_or_hash]} : Kills a container
+  \item \mintinline{shell}{docker-compose down} : Stops a compose collection
+  \item \mintinline{shell}{docker rm} : Removes a stopped container (kept around due to daemon)
+\end{itemize}
+\subsection{Working with Images}
+\begin{itemize}
+  \item \mintinline{shell}{docker images} : Lists available images
+  \item \mintinline{shell}{docker pull [image_name]} : Pulls an image from a repository
+  \item \mintinline{shell}{docker push [image_name]} : Pushes an image
+  \item \mintinline{shell}{docker rmi [image_name_or_hash]} : Removes an image locally
+\end{itemize}
+\end{document}
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: t
+%%% TeX-command-extra-options: "-shell-escape"
+%%% End:
