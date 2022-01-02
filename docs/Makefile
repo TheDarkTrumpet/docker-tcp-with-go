@@ -23,7 +23,7 @@ build_diags:
 	drawio -x -f png -e -p 3 -o ./03-micro.png $(demo_diagram)
 
 clean:
-	rm -f *.aux *.log *.nav *.snm *.toc *.png *.out
+	rm -f *.aux *.log *.nav *.snm *.toc 0*.png *.out
 	rm -Rf _minted*
 
 all: build
