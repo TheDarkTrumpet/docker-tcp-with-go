@@ -9,6 +9,9 @@ build: clean build_diags
 	pdflatex -shell-escape 02-IntroDocker.tex  # For TOC
 	pdflatex -shell-escape 03-RunStrategies.tex
 	pdflatex -shell-escape 03-RunStrategies.tex # For TOC
+	pdflatex -shell-escape XX-UFGPresentation.tex
+	pdflatex -shell-escape XX-UFGPresentation.tex # For TOC
+	pdflatex -shell-escape XX-UFGHandout.tex
 
 build_diags:
 	drawio -x -f png -e -p 0 -o ./02-DockerVsVMs.png $(architecture_diagram)
