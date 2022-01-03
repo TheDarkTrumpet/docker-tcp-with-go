@@ -19,9 +19,9 @@ applies to, and can be encapsulated in, Docker.
 
 # Project Dependencies
 
-At a minimum, you need to have docker and docker-compose installed.
+At a minimum, you need to have docker and docker-compose installed on a system (or see the provided lab below)
 
-If you wish to build the applications/containers, you need to have the following installed:
+If you wish to build the applications, outside the containers, you need to have the following installed:
 1. golang
 2. npm
 
