@@ -27,10 +27,11 @@ If you wish to build the applications, outside the containers, you need to have 
 
 # Where to Get Started?
 
-I recommend starting to read through the `scenario/*` directories.  They're numbers from 01-04, and start with 01.  
-These are meant as a tutorial.
+The two main directories that'll be of immediate interest are the `docs/*` and `scenario/*`:
 
-This will update with links to my blog and videos as I develop them before my formal presentation in Dec.
+* `docs/*` provides the slides, notes, and handouts for videos and presentations.
+* `scenario/*` provides a step-by-step instruction to walk you through doing stuff in Docker.  Start with `01`.  The non-numeric start ones are for public presentations I'm doing on the topic.
+
 
 # Running Along with the Scenarios
 
