@@ -32,15 +32,15 @@ These are meant as a tutorial.
 
 This will update with links to my blog and videos as I develop them before my formal presentation in Dec.
 
-# Running along with the scenarios
+# Running Along with the Scenarios
 
 If you'd like to run along with the scenarios, there are two options you can do to achive this:
 
-## 1. Run Docker on your main system
+## 1. Run Docker on Your Main System
 
 You can install Docker on both Windows, OSX, as well as Linux.  It's free.  But, given the number of types of systems people are using, I won't provide detailed instructions here.  What I will say is that if you're using Windows, look for `Docker CE for Windows`, and for OSX `Docker Desktop for Mac`.  For linux, if using a Debian based one, https://docs.docker.com/engine/install/debian/ should help out a lot.
 
-## 2. Use the provided lab
+## 2. Use the Provided Lab
 
 Because #1, above, can be a be a bit much if you're unsure if you'd like and use Docker, I also provided an virtual machine image that has everything included.  You can navigate to the `image` directory in this repository to build your own, or use the `debian_gold.tgz` file in the `image` directory with QEMU.  The README in the `image` directory has more information on all this.
 
