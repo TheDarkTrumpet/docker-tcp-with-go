@@ -34,6 +34,7 @@ Sometimes, for very popular images, you won't have a user associated with it.  O
 
 # Part 2 - Basic Docker Commands
 
+## Description
 There are a few core commands that are important to understand when working with **images**, besides pull.  To run them `docker run`, to list them `docker images`, to list running containers `docker ps`, and so on are also very important.
 
 ## Part 2a - Docker Images
@@ -93,9 +94,94 @@ b880310ab53d
 user@qlab ~ »
 ```
 
-# Part 3 - Interacting with a Container - Shell
+# Part 3 - Interacting with a Container - Shell and Logs
+## Description
+
+Sometimes it's useful to physically interact with a running container to aid in debugging, but also to grab config files and the like from it (say with nginx for modification).  Viewing the logs, especially when dealing with daemon mode, is very useful.
+
+## Part 3a - Launching monolithic as daemon & view logs
+
+1. Run the following command:
+
+```bash
+docker run -d -p 11111:80 --rm --name monolithic thedarktrumpet/docker-tcp-with-go:monolithic
+```
+
+2. Then run `docker ps` to see what's running.
+
+You should see the following, from the above two commands:
+
+```text
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+user@qlab:~$ docker run -d -p 11111:80 --rm --name monolithic thedarktrumpet/docker-tcp-with-go:monolithic
+629b712ef7073f8b2e7be1366127f96725bb2335814d27e3cd819c8ab4e761b7
+user@qlab:~$ docker ps
+CONTAINER ID   IMAGE                                          COMMAND                  CREATED          STATUS          PORTS                                     NAMES
+629b712ef707   thedarktrumpet/docker-tcp-with-go:monolithic   "/docker-entrypoint.…"   16 seconds ago   Up 11 seconds   0.0.0.0:11111->80/tcp, :::11111->80/tcp   monolithic
+user@qlab:~$
+```
+
+3. Run `docker logs monolithic`, and you should see something like the following:
+
+```text
+user@qlab:~$ docker logs monolithic
+Calling setupHandlers()
+Calling handleConnection() til finished
+Attempting to connect to localhost:9999
+!! Got connection from 127.0.0.1:58750!!
+127.0.0.1:58750 => 127.0.0.1:9999: and Message! 98081
+127.0.0.1:9999 <= 127.0.0.1:58750: and Message! 98081
+127.0.0.1:9999 => 127.0.0.1:58750: and Message! 24593
+127.0.0.1:58750 <= 127.0.0.1:9999: and Message! 24593
+127.0.0.1:58750 => 127.0.0.1:9999: and Message! 31847
+127.0.0.1:9999 <= 127.0.0.1:58750: and Message! 31847
+...
+```
+
+Keep the image up til told to close it (We'll use it up through the end of part 4).
+
+## Part 3a - Shell 'login'
+
+1. Run `docker exec -it monolithic /bin/bash` and you should get the following:
+
+```text
+user@qlab:~$ docker exec -it monolithic /bin/bash
+root@629b712ef707:/#
+```
+
+From here, you can play around a bit.  If you try running something like top, ps, etc. you'll notice that little is available.  Furthermore, if you cd into the `/src` directory, you can see the scripts/programs we're executing.
+
+Often times this is is a useful command to do extra debugging of a container.  For example, we can...
+
+2. Run `apt-get update && apt-get install -y htop`
+3. Run `htop`
+
+Once done playing, exit out of the running container by typing `exit`
 
 # Part 4 - Interacting with a Container - Web and Networking
+## Description
+
+So far we've been looking at running containers from the command line, but lets play with it a bit more from the networking layer.
+
+`docker ps` helps show what ports we have opened, and by default docker will open it on the local machine, and will be listening on all interfaces.  This can be customized.
+
+## Part 4a - Networking
+
+1.  Run `docker ps` again from the command line, and note the output:
+
+```text
+user@qlab:~$ docker ps
+CONTAINER ID   IMAGE                                          COMMAND                  CREATED          STATUS          PORTS                                     NAMES
+629b712ef707   thedarktrumpet/docker-tcp-with-go:monolithic   "/docker-entrypoint.…"   10 minutes ago   Up 10 minutes   0.0.0.0:11111->80/tcp, :::11111->80/tcp   monolithic
+user@qlab:~$ 
+```
+
+2.  Looking under the "PORTS" section, note the port opened up, 11111.
+3.  Open a web browser and navigate to the **host**, with port 11111
+    - If you are using the lab I provided, and use qemu, your url may be: http://localhost:11111
+	- If you're using docker on your own machine, then the url **is**: http://localhost:11111
+
+4. When done with this section, type: `docker kill monolithic`
 
 # Part 5 - Mounting local directories (good for development)
 
