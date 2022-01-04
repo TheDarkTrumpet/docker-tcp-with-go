@@ -184,12 +184,56 @@ user@qlab:~$
 4. When done with this section, type: `docker kill monolithic`
 
 # Part 5 - Mounting local directories (good for development)
+## Description
+When developing in Docker, or developing what may be a good Docker image, mounting local directories is a good idea.  If the Docker image needs to retain state, mounted folders are one of the ways to go.
+
+## Part 5a - Starting Docker with local folder
+
+1. `cd` into the directory with the source code, if using my image, then `cd ~/docker-tcp-with-go`
+2. Run: `docker run -d -p 11111:80 -v $(pwd):/code --rm --name monolithic thedarktrumpet/docker-tcp-with-go:monolithic`
+3. Run: `docker ps`
+4. Run: `docker exec -it monolithic /bin/bash`
+5. cd, and ls the /code directory.
+
+Running the above 4 items, you should have the following:
+
+```text
+user@qlab:~/docker-tcp-with-go$ docker run -d -p 11111:80 -v $(pwd):/code --rm --name monolithic thedarktrumpet/docker-tcp-with-go:monolithic
+63c7a8237e339df52b40186a25c91fb305b07b1c29337c08672f951b30c6d3d1
+user@qlab:~/docker-tcp-with-go$ docker ps
+CONTAINER ID   IMAGE                                          COMMAND                  CREATED         STATUS         PORTS                                     NAMES
+63c7a8237e33   thedarktrumpet/docker-tcp-with-go:monolithic   "/docker-entrypoint.…"   7 seconds ago   Up 2 seconds   0.0.0.0:11111->80/tcp, :::11111->80/tcp   monolithic
+user@qlab:~/docker-tcp-with-go$ docker exec -it monolithic /bin/bash
+root@63c7a8237e33:/# cd /code
+root@63c7a8237e33:/code# ls
+README.md  build_all_and_deploy.sh  client  docker  docs  image  scenarios  server
+root@63c7a8237e33:/code#
+```
+
+6. Type: `echo 'hello' > hello_world`
+7. Type: `exit`
+8: Type: `ls` then `cat hello_world`
+
+Running the above 3 lines, you should see:
+
+```text
+root@63c7a8237e33:/code# echo 'hello' > hello_world
+root@63c7a8237e33:/code# exit
+exit
+user@qlab:~/docker-tcp-with-go$ ls
+build_all_and_deploy.sh  client  docker  docs  hello_world  image  README.md  scenarios  server
+user@qlab:~/docker-tcp-with-go$ cat hello_world 
+hello
+user@qlab:~/docker-tcp-with-go$
+```
 
 # Part 7 - Docker Compose
+## Description
 
 # Part 8 - Cleanup of Images
-
+## Description
 # Part 9 - Building of Images 
+## Description
 
 # Part 10 - Design Patterns
 
