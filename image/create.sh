@@ -10,18 +10,16 @@ modprobe nbd
 qemu-nbd --format=raw --connect=/dev/nbd0 debian.img
 
 sfdisk /dev/nbd0 << EOF
-,1024,82
 ;
 EOF
 
-mkswap /dev/nbd0p1
-mkfs.ext4 /dev/nbd0p2
+mkfs.ext4 /dev/nbd0p1
 
 # Mount disk and install base system
 mkdir disk
-mount /dev/nbd0p2 disk
+mount /dev/nbd0p1 disk
 
-debootstrap --arch=amd64 --include="openssh-server emacs-nox docker.io sudo git qemu-guest-agent ca-certificates locales" stable disk/ http://httpredir.debian.org/debian/
+debootstrap --arch=amd64 --include="openssh-server emacs-nox curl gnupg lsb-release sudo git ca-certificates locales dbus" stable disk/ http://httpredir.debian.org/debian/
 
 # Mount and chroot into it
 mount --bind /dev/ disk/dev
@@ -34,6 +32,16 @@ mount -t sysfs none /sys
 echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
 locale-gen
 
+## Install docker
+curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+apt-get update
+apt-get install -y docker-ce docker-ce-cli containerd.io
+
+## Kernel and Grub
 apt-get install -y linux-image-amd64 grub2
 
 # Create a user
@@ -47,12 +55,11 @@ echo "user:user" | chpasswd
 echo "pts/0" >> /etc/securetty
 systemctl set-default multi-user.target
 systemctl enable ssh
-systemctl enable docker
-systemctl enable qemu-guest-agent
+# systemctl enable docker
+# systemctl enable qemu-guest-agent
 
 # Root Drive and Swap
-echo "/dev/sda1 none swap sw 0 0" > /etc/fstab
-echo "/dev/sda2 / ext4 defaults,discard 0 0" >> /etc/fstab
+echo "/dev/sda1 / ext4 defaults,discard 0 0" >> /etc/fstab
 
 # Networking and hostname
 echo 'qlab' > /etc/hostname
@@ -70,7 +77,7 @@ systemctl enable systemd-networkd
 
 # Setup User-based stuff
 sudo su user -
-cd ~
+cd
 
 git clone https://github.com/TheDarkTrumpet/docker-tcp-with-go.git
 
