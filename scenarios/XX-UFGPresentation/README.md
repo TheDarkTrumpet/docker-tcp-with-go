@@ -311,6 +311,6 @@ To create a docker container, once everything's ready, run `docker build -t <TAG
 # Part 9 - Design Patterns
 
 ## Description
-There are many ways to design the creation of images, but I strongly feel a micro architecture standpoint is much cleaner.  So, each container has a specific concern ([https://en.wikipedia.org/wiki/Separation_of_concerns](Separation of Concerns)), and you denote the dependencies in the docker-compose file.  The [https://github.com/TheDarkTrumpet/docker-tcp-with-go/tree/master/docker/micro](Build directories) and [https://github.com/TheDarkTrumpet/docker-tcp-with-go/blob/master/scenarios/04-micro-docker-compose/docker-compose.yml](Compose file) should be of particular interest in this.
+There are many ways to design the creation of images, but I strongly feel a micro architecture standpoint is much cleaner.  So, each container has a specific concern ([Separation of Concerns](https://en.wikipedia.org/wiki/Separation_of_concerns)), and you denote the dependencies in the docker-compose file.  The [build directory](https://github.com/TheDarkTrumpet/docker-tcp-with-go/tree/master/docker/micro) and [Compose file](https://github.com/TheDarkTrumpet/docker-tcp-with-go/blob/master/scenarios/04-micro-docker-compose/docker-compose.yml) should be of particular interest in this.
 
 
