@@ -35,4 +35,4 @@ docs/*.toc
 docs/*.out
 docs/_minted*
 *.pyg
-images/debian.img
+image/debian.img
