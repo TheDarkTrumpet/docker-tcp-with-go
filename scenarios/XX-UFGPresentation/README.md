@@ -227,52 +227,90 @@ hello
 user@qlab:~/docker-tcp-with-go$
 ```
 
-# Part 7 - Docker Compose
+9. Bring down/kill the container: `docker kill monolithic`
+
+# Part 6 - Docker Compose
 ## Description
+Docker Compose is an option for orchestrating container creation within Docker.  There are alternatives, but `docker-compose` is a great option.
+## Part 6a - Invoking Docker Compose
 
-# Part 8 - Cleanup of Images
-## Description
-# Part 9 - Building of Images 
-## Description
+1. `cd` into the repository code.  If using the image I provided, then `cd ~/docker-tcp-with-go`
+2. Type: `cd scenarios/04-micro-docker-compose`
+3. Type `docker-compose up -d`
 
-# Part 10 - Design Patterns
+After running the above, you should get the following:
 
-
-# Part 1 - Running link with all of these
-
-## Steps to Run
-1. Run the api container, with the following command:
-
-```shell
-docker run -d --rm --name api thedarktrumpet/docker-tcp-with-go:micro_api
+```text
+user@qlab:~/docker-tcp-with-go/scenarios/04-micro-docker-compose$ docker-compose up -d
+Creating network "04-micro-docker-compose_default" with the default driver
+Creating api ... done
+Creating client ... done
+Creating web    ... done
 ```
 
-2. Run the web container, with the following command:
+4. Navigate to the web interface, like in 4a.3:
+   - If you are using the lab I provided, and use qemu, your url may be: http://localhost:11111
+   - If you're using docker on your own machine, then the url **is**: http://localhost:11111
 
-```shell
-docker run -d --rm -p 11111:80 --link api --name web thedarktrumpet/docker-tcp-with-go:micro_web
+5. While keeping the web interface up, run the following: 
+`docker run -d --link api --net 04-micro-docker-compose_default --name client_2 --rm thedarktrumpet/docker-tcp-with-go:micro_client`
+
+6. Look at the network interface, we now have two clients.
+
+7. Run `docker ps` and you should see the following:
+
+```text
+user@qlab:~/docker-tcp-with-go/scenarios/04-micro-docker-compose$ docker ps
+CONTAINER ID   IMAGE                                            COMMAND                  CREATED          STATUS          PORTS                                     NAMES
+438577fa7ad7   thedarktrumpet/docker-tcp-with-go:micro_client   "/bin/sh -c /src/sta…"   56 seconds ago   Up 51 seconds                                             client_2
+426627882f69   thedarktrumpet/docker-tcp-with-go:micro_web      "/docker-entrypoint.…"   8 minutes ago    Up 8 minutes    0.0.0.0:11111->80/tcp, :::11111->80/tcp   web
+65941175dea7   thedarktrumpet/docker-tcp-with-go:micro_client   "/bin/sh -c /src/sta…"   8 minutes ago    Up 8 minutes                                              client
+bdd43a55bf18   thedarktrumpet/docker-tcp-with-go:micro_api      "/bin/sh -c /src/sta…"   8 minutes ago    Up 8 minutes                                              api
 ```
 
-3. Run a client container, with the following command:
+7. Run `docker-compose down` and you'll notice an error.  Because we had something outside docker compose hop on the network, it kept the network around.  This is despite that `docker ps` is now empty.
 
-```shell
-docker run -d --link api --rm --name client2 thedarktrumpet/docker-tcp-with-go:micro_client
+8. Run `docker network rm 04-micro-docker-compose_default` to clean up the network.
+
+# Part 7 - Cleanup of Images
+## Description
+`docker rm` and `docker rmi` are used to clean up containers and images respectively.
+## Part 7a - Removing monolithic
+
+1. Type: `docker rmi thedarktrumpet/docker-tcp-with-go:monolithic` and you should get the following:
+
+```text
+user@qlab:~/docker-tcp-with-go/scenarios/04-micro-docker-compose$ docker rmi thedarktrumpet/docker-tcp-with-go:monolithic
+Untagged: thedarktrumpet/docker-tcp-with-go:monolithic
+Untagged: thedarktrumpet/docker-tcp-with-go@sha256:2d2a98dfaa9ef96b1bae95578b68d218ff979542d6c5e60c18212e926e5ad71c
+Deleted: sha256:fb6385fa752ed00f378aef0a5aeab87c03619871211f354e599bdb18aa2b8109
+Deleted: sha256:c206f12cdc1aca0825fb777c0f2f6b70245d536b0676be97f1dc3baf43e42bf0
+Deleted: sha256:07ca6bb1bb7884fbf8173b8483f3f52bf1b2e2c715c38171ff1eff9af81e345c
+Deleted: sha256:100a1549eed599b1cd3adcb4ff8ce913317e68afd352d51ec024c636e73d0fb3
+Deleted: sha256:17962865f5c6f5cbbe32dc306b31527ea311a85e7be4e0aff5dc27048f51373a
+Deleted: sha256:3e784bb3b5e6d6672a85b294f996fac3b714183163e8d171bf8a1e393f76195a
+Deleted: sha256:9105f2b9313dfe5fa8ebcfa90e129c80032815ac2986c592e1efa8409fb1be88
+user@qlab:~/docker-tcp-with-go/scenarios/04-micro-docker-compose$
 ```
 
-4. Open a web browser and visit http://localhost:11111
+# Part 8 - Building of Images 
+## Description
+There are no steps associated with this part.  But, more references, and a description (likely we won't get to this in the presentation).  Dockerfiles are used to create a Docker image
 
-## Steps to Clean Up
+A simple example of all this is located at: https://github.com/TheDarkTrumpet/docker-tcp-with-go/blob/master/docker/monolithic/
 
-1. Type `docker kill web`
-2. Type `Docker kill api`
-3. Type `docker kill client`
+The files, and their meaning are:
 
-## Explanations
+* Dockerfile - used to control the creation of the image
+* build.sh - A shell script for building all artifacts and invoking docker build
+* nginx.conf - A config file we'll use in our container
+* start.sh - The entry point, useful because I'm running multiple components in a container
 
-There's nothing specifically new here that we haven't seen already, but the point of all this is to illustrate a point.
+To create a docker container, once everything's ready, run `docker build -t <TAG_NAME> .`  This will look for a Dockerfile in the directory you're in, and will invoke the steps present.
 
-The above steps when running the setup have to be done in order.  At least, some order.  If you spawn the client without
-the server, it fails (we saw that happen in 02 when link was omitted).  The web component will fail at finding the api
-endpoint as well.
+# Part 9 - Design Patterns
 
-Around this time, it's good to start looking at better solutions.  We'll show that next.
+## Description
+There are many ways to design the creation of images, but I strongly feel a micro architecture standpoint is much cleaner.  So, each container has a specific concern ([https://en.wikipedia.org/wiki/Separation_of_concerns](Separation of Concerns)), and you denote the dependencies in the docker-compose file.  The [https://github.com/TheDarkTrumpet/docker-tcp-with-go/tree/master/docker/micro](Build directories) and [https://github.com/TheDarkTrumpet/docker-tcp-with-go/blob/master/scenarios/04-micro-docker-compose/docker-compose.yml](Compose file) should be of particular interest in this.
+
+

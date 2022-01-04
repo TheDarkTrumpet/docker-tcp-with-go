@@ -41,6 +41,9 @@ echo \
 apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io
 
+curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod 755 /usr/local/bin/docker-compose
+
 ## Kernel and Grub
 apt-get install -y linux-image-amd64 grub2
 
