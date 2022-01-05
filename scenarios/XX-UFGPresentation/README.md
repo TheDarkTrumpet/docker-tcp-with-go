@@ -94,6 +94,46 @@ b880310ab53d
 user@qlab ~ »
 ```
 
+## Part 2c - Listing Stopped Containers
+
+### Description
+
+It's worth repeating that a **container** has state, and when exited, can stay around.  If the run command isn't invoked with a dedicated name, a dynamic one is provided.  Because the stopped container's key is also off a unique constraint on the name, we can have multiple stopped containers.
+
+1. Run `docker container ls -a` and you should see the previous container
+
+2. Using the hash provided in #1, run `docker container restart <HASH>`
+
+3. Run `docker ps`
+
+After running the 3 above commands, you should see something like:
+
+```text
+user@qlab:~$ docker container ls -a
+CONTAINER ID   IMAGE                                          COMMAND                  CREATED         STATUS                       PORTS     NAMES
+7ca8b7a61f95   thedarktrumpet/docker-tcp-with-go:monolithic   "/docker-entrypoint.…"   7 minutes ago   Exited (137) 9 seconds ago             vigorous_einstein
+user@qlab:~$ docker container restart 7ca8b7a61f95
+7ca8b7a61f95
+user@qlab:~$ docker ps
+CONTAINER ID   IMAGE                                          COMMAND                  CREATED         STATUS         PORTS     NAMES
+7ca8b7a61f95   thedarktrumpet/docker-tcp-with-go:monolithic   "/docker-entrypoint.…"   8 minutes ago   Up 2 seconds   80/tcp    vigorous_einstein
+```
+
+4. Rekill the container again: `docker kill <hash>`
+5. Remove the container: `docker rm <hash`
+6. Run: `docker container ls -a`
+
+After running the above 3 commands, you should see something like:
+
+```
+user@qlab:~$ docker kill 7ca8b7a61f95
+7ca8b7a61f95
+user@qlab:~$ docker rm 7ca8b7a61f95
+7ca8b7a61f95
+user@qlab:~$ docker container ls -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+user@qlab:~$
+```
 # Part 3 - Interacting with a Container - Shell and Logs
 ## Description
 
@@ -226,8 +266,8 @@ user@qlab:~/docker-tcp-with-go$ cat hello_world
 hello
 user@qlab:~/docker-tcp-with-go$
 ```
-
-9. Bring down/kill the container: `docker kill monolithic`
+9. View information about the running container: `docker inspect monolithic`
+10. Bring down/kill the container: `docker kill monolithic`
 
 # Part 6 - Docker Compose
 ## Description
